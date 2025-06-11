@@ -1,6 +1,3 @@
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-#echo source ~/.bash_profile
-
 PATH=$PATH:/opt/homebrew/bin
 
 eval "$(brew shellenv)"
@@ -8,6 +5,7 @@ eval "$(brew shellenv)"
 # Add local ~/scripts to the PATH
 export PATH="$HOME/.config/scripts:$PATH"
 
+# Add nvim Mason binaries to path
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 export TMUX_CONF=~/.config/tmux/tmux.conf
@@ -26,7 +24,6 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=$PATH:$(go env GOPATH)/bin
 
 # Path to your oh-my-zsh installation.
-# NOTE : Disabled Shell Prompt: Currently using Starship
 export ZSH="$HOME/.oh-my-zsh"
 
 # HACK: zsh plugins
@@ -39,7 +36,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Starship 
 eval "$(starship init zsh)"
-# set Starship PATH
 export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml
 
 # NOTE: Zoxide
@@ -47,7 +43,6 @@ eval "$(zoxide init zsh)"
 
 # NOTE: FZF
 eval "$(fzf --zsh)"
-
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git "
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
@@ -66,20 +61,11 @@ source ~/.config/scripts/fzf-git.sh
 
 . "$HOME/.atuin/bin/env"
 
-# Atuin Configs
-eval "$(atuin init zsh)"
-# Keybinding to start Atuin in Insert Mode
-bindkey '^r' atuin-search-viins  # Ctrl-r starts Atuin in Insert mode
-
 #User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
-
-# Console Ninja
-PATH=~/.console-ninja/.bin:$PATH
-
 
 # These alias need to have the same exact space as written here
 # HACK: For Running Go Server using Air
@@ -89,6 +75,9 @@ alias air='$(go env GOPATH)/bin/air'
 alias c="clear"
 alias e="exit"
 
+# nvim
+alias v="nvim"
+
 # Tmux 
 alias tmux="tmux -f $TMUX_CONF"
 alias a="attach"
@@ -97,9 +86,6 @@ alias a="attach"
 alias nlof="~/.config/scripts/fzf_listoldfiles.sh"
 # opens documentation through fzf (eg: git,zsh etc.)
 alias fman="compgen -c | fzf | xargs man"
-
-# Next level of an ls 
-alias ls="eza --no-filesize --long --color=always --icons=always --no-user" 
 
 # tree
 alias tree="tree -L 3 -a -I '.git' --charset X "
@@ -118,6 +104,9 @@ alias lg="lazygit"
 
 # unbind ctrl g in terminal
 bindkey -r "^G"
+
+# Improve ls
+alias ls="eza --no-filesize --long --color=always --icons=always --no-user" 
 
 # brew installations activation (new mac systems brew path: opt/homebrew , not usr/local )
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh

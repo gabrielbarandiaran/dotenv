@@ -1,17 +1,5 @@
 #!/bin/bash
 
-# Install xCode cli tools
-if [[ "$(uname)" == "Darwin" ]]; then
-    echo "macOS deteted..."
-
-    if xcode-select -p &>/dev/null; then
-        echo "Xcode already installed"
-    else
-        echo "Installing commandline tools..."
-        xcode-select --install
-    fi
-fi
-
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -72,12 +60,6 @@ defaults write InitialKeyRepeat -int 10
 
 csrutil status
 echo "Installation complete..."
-
-# Clone dotfiles repository
-if [ ! -d "$HOME/dotfiles" ]; then
-  echo "Cloning dotfiles repository..."
-  git clone https://github.com/Sin-cy/dotfiles.git $HOME/dotfiles
-fi
 
 # Navigate to dotfiles directory
 cd $HOME/dotfiles || exit

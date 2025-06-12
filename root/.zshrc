@@ -59,15 +59,13 @@ export FZF_TMUX_OPTS=" -p90%,70% "
 # FZF with Git right in the shell by Junegunn : check out his github below
 source ~/.config/scripts/fzf-git.sh
 
-. "$HOME/.atuin/bin/env"
-
-#User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-# These alias need to have the same exact space as written here
+################################
+############ ALIAS #############
+################################
+
 # HACK: For Running Go Server using Air
 alias air='$(go env GOPATH)/bin/air'
 

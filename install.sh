@@ -16,41 +16,78 @@ brew tap FelixKratz/formulae
 
 ## Formulae
 echo "Installing Brew Formulae..."
+
 ### Must Have things
-brew install zsh-autosuggestions
-brew install zsh-syntax-highlighting
-brew install stow
-brew install fzf
-brew install bat
-brew install fd
-brew install zoxide
-brew install lua
-brew install luajit
-brew install luarocks
-brew install prettier
-brew install make
-brew install qmk
-brew install ripgrep
+brew install zsh-autosuggestions         # zsh plugin: command suggestions
+brew install zsh-syntax-highlighting     # zsh plugin: syntax highlighting
+brew install stow                        # dotfiles symlinker
+brew install fzf                         # fuzzy finder
+brew install bat                         # cat with syntax highlighting
+brew install fd                          # faster alternative to find
+brew install jq                          # JSON parser — super useful
+brew install yq                          # YAML parser — like jq but for YAML
+brew install httpie                      # Better curl for testing APIs
+brew install zoxide                      # smarter cd command
+brew install lua                         # Lua programming language
+brew install luajit                      # LuaJIT compiler
+brew install luarocks                    # Lua package manager
+brew install prettier                    # code formatter
+brew install make                        # build automation tool
+brew install qmk                         # keyboard firmware builder
+brew install ripgrep                     # fast search tool
+
+### Programming
+brew install go                          # Go programming language
+brew install python                      # Python language
+brew install pyenv                       # Python version manager
+brew install node                        # Node.js runtime
+brew install nvm                         # Node version manager
+brew install stylua                      # Lua code formatter (via Mason or here)
+npm install -g typescript typescript-language-server    # TypeScript compiler + LSP server
+# Global npm tools
+npm install -g typescript typescript-language-server    # TypeScript + LSP
+npm install -g eslint_d                                 # Faster eslint (for null-ls)
+npm install -g prettierd                                # Code formatter
+npm install -g @fsouza/prettierd                        # Fast Prettier server for Neovim
+npm install -g vscode-langservers-extracted
+# Python Neovim support
+brew install pyvim      # Python client for Neovim
+# Go tools
+go install github.com/ramya-rao-a/go-outline@latest         # Go outline symbols
+go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest   # Go package listing
+go install github.com/acroca/go-symbols@latest              # Go symbols for LSP
+go install golang.org/x/tools/gopls@latest                  # Go language server
+go install github.com/go-delve/delve/cmd/dlv@latest         #
+
+# AWS & Cloud Tools
+brew install awscli                             # AWS CLI v2
+brew install aws-sam-cli                        # AWS Serverless Application Model CLI (for Lambda dev)
+brew install terraform                          # Infrastructure as Code (IaC)
+brew install eksctl                             # CLI for managing EKS clusters (Kubernetes on AWS)
+brew install session-manager-plugin             # AWS SSM session manager plugin (needed for `aws ssm start-session`)
+
+# Container & Kubernetes Tools
+brew install --cask docker                      # Docker Desktop (engine + GUI)
+brew install kubectl                            # Kubernetes CLI (kubectl)
+brew install helm                               # Kubernetes package manager (Helm charts)
+brew install k9s                                # TUI to interact with Kubernetes clusters
 
 ### Terminal
-brew install git
-brew install lazygit
-brew install tmux
-brew install neovim
-brew install starship
-brew install tree-sitter
-brew install tree
-brew install borders
-
-### dev things
-brew install node
-brew install nvm
+brew install git                         # version control system
+brew install lazygit                     # terminal UI for git
+brew install tmux                        # terminal multiplexer
+brew install neovim                      # modern text editor
+brew install starship                    # fast customizable shell prompt
+brew install tree-sitter                 # incremental parsing system
+brew install tree                        # directory tree visualizer
+brew install borders                     # window border tool (macOS)
 
 ## Casks
-brew install --cask aerospace
-brew install --cask font-hack-nerd-font
-brew install --cask font-jetbrains-mono-nerd-font
-brew install --cask font-sf-pro
+brew install --cask aerospace                   # tiling window manager for macOS
+brew install --cask karabiner-elements          # powerful keyboard customizer
+brew install --cask font-hack-nerd-font         # developer-friendly font
+brew install --cask font-jetbrains-mono-nerd-font # JetBrains Mono Nerd Font
+brew install --cask font-sf-pro                 # Apple SF Pro font
 
 ## MacOS settings
 echo "Changing macOS defaults..."
@@ -58,14 +95,14 @@ defaults write com.apple.Dock autohide -bool TRUE
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write InitialKeyRepeat -int 10
 
-csrutil status
 echo "Installation complete..."
 
-# Navigate to dotfiles directory
-cd $HOME/dotfiles || exit
+# Stow configs into ~/.config
+echo "Stowing configs into ~/.config..."
+stow -Rv -t ~/.config config
 
-# Stow dotfiles packages
-echo "Stowing dotfiles..."
-stow -t ~ aerospace neovim tmux zsh
+# Stow configs into ~
+echo "Stowing configs into ~..."
+stow -Rv -t ~ root
 
 echo "Dotfiles setup complete!"

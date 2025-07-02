@@ -56,32 +56,16 @@
             },
             "devices": [
                 {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 325,
-                        "vendor_id": 4661
-                    },
-                    "ignore": true
-                },
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 50495,
-                        "vendor_id": 1133
-                    },
-                    "ignore": true
-                },
-                {
                     "identifiers": { "is_keyboard": true },
                     "simple_modifications": [
                         {
-                            "from": { "key_code": "escape" },
-                            "to": [{ "key_code": "right_control" }]
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "right_command" }]
                         }
                     ]
                 }
             ],
-            "name": "Barandiaran",
+            "name": "Default profile",
             "selected": true,
             "simple_modifications": [
                 {

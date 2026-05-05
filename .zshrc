@@ -7,6 +7,7 @@ BREW_PREFIX="$(brew --prefix)"
 # ── PATH additions ──
 export PATH="$HOME/.config/scripts:$PATH"
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"        # Claude Code + other user-local CLIs
 
 # ── Env ──
 export LANG=en_US.UTF-8

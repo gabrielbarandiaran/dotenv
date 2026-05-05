@@ -27,10 +27,12 @@ Anything new added to `install.sh` should mutate the `INSTALLED` / `UPDATED` / `
 | `ghostty/` | `~/.config/ghostty` |
 | `tmux/` | `~/.config/tmux` |
 | `starship/` | `~/.config/starship` |
+| `nvim/` | `~/.config/nvim` |
+| `scripts/` | `~/.config/scripts` |
 | `.aerospace.toml` | `~/.aerospace.toml` |
 | `.zshrc` | `~/.zshrc` |
 
-`nvim/` and `scripts/` are intentionally not symlinked. (`scripts/` is added to `PATH` from `.zshrc`.)
+`scripts/` reaches `PATH` via `$HOME/.config/scripts` in `.zshrc` — that entry only resolves because the symlink is in place, so don't drop the `link_config` call for it. Lazy.nvim writes `lazy-lock.json` back through the `nvim/` symlink into the repo, which is intentional (the lockfile is tracked).
 
 ## External SSD relocations: `/Volumes/Barandiaran` (Crucial X9 1 TB, USB 3.2 Gen 2)
 

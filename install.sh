@@ -78,6 +78,32 @@ go_get() {
   fi
 }
 
+# Claude Code: Anthropic's native installer drops the binary at ~/.local/bin/claude
+# and supports in-place upgrades via `claude update`, so re-runs use that path.
+claude_install() {
+  local bin="$HOME/.local/bin/claude"
+  if [ -x "$bin" ]; then
+    local output
+    if output="$(claude update 2>&1)"; then
+      echo "$output"
+      if echo "$output" | grep -qiE "already|up to date|latest|current"; then
+        SKIPPED+=("claude-code (current)")
+      else
+        UPDATED+=("claude-code")
+      fi
+    else
+      echo "$output"
+      echo "[fail] claude-code update"
+      FAILED+=("claude-code update")
+    fi
+  elif curl -fsSL https://claude.ai/install.sh | bash; then
+    INSTALLED+=("claude-code")
+  else
+    echo "[fail] claude-code"
+    FAILED+=("claude-code")
+  fi
+}
+
 # Homebrew
 ## Install (skip if already present, even if not yet on PATH)
 if command -v brew >/dev/null 2>&1 || [ -x /opt/homebrew/bin/brew ] || [ -x /usr/local/bin/brew ]; then
@@ -127,6 +153,10 @@ brew_install typescript-language-server     # TS LSP
 brew_install eslint_d                       # Faster eslint (for null-ls)
 brew_install prettierd                      # code formatter
 brew_install vscode-langservers-extracted
+
+# AI tooling
+claude_install                              # Claude Code CLI (~/.local/bin/claude)
+
 # Python
 brew_install pyvim      # Python client for Neovim
 brew_install python     # Python language
@@ -231,6 +261,8 @@ link_config "$DOTFILES_DIR/karabiner"       "$HOME/.config/karabiner"
 link_config "$DOTFILES_DIR/ghostty"         "$HOME/.config/ghostty"
 link_config "$DOTFILES_DIR/tmux"            "$HOME/.config/tmux"
 link_config "$DOTFILES_DIR/starship"        "$HOME/.config/starship"
+link_config "$DOTFILES_DIR/nvim"            "$HOME/.config/nvim"
+link_config "$DOTFILES_DIR/scripts"         "$HOME/.config/scripts"
 link_config "$DOTFILES_DIR/.aerospace.toml" "$HOME/.aerospace.toml"
 link_config "$DOTFILES_DIR/.zshrc"          "$HOME/.zshrc"
 
